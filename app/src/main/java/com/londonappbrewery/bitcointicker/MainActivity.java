@@ -40,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Create an ArrayAdapter using the String array and a spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.currency_array, R.layout.spinner_item);
-
+        //above is used to provide choice's of drop-down from spinner i.e. what will be available to select
+        //currency_array is string-array's name in strings.xml i.e. it is the name of the array which we want the options to be from.
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        //the above layout files are just blank layout.xml files.
+        //see https://developer.android.com/guide/topics/ui/controls/spinner
 
         // TODO: Set an OnItemSelected listener on the spinner
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d("Bitcoin", "" + adapterView.getItemAtPosition(i)); //new way because parent=adapterView and position=i (old=new)
                 Log.d("Bitcoin", "Item Selected: " + parent.getItemAtPosition(position)); //old way, but using it for purposes of tutorial.
                 //i.e the above tells us what item in the parent was selected. i.e. which symbol
+                Log.d("Bitcoin", "Position is: " + position); //old way, but using it for purposes of tutorial.
+                //i.e. index in array counting from 0.
                 String url = BASE_URL + parent.getItemAtPosition(position);
                 letsDoSomeNetworking(url);
             }
@@ -80,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 //WeatherDataModel weatherData = WeatherDataModel.fromJson(response);
                 //updateUI(weatherData);
                 try{
-                    String askPrice = response.getString("ask");
-                    mPriceTextView.setText(askPrice);
-                    Log.d("Bitcoin", "Ask Price Set to: "+ askPrice);
+                    String lastPrice = response.getString("last");
+                    mPriceTextView.setText(lastPrice);
+                    Log.d("Bitcoin", "Last Price Set to: "+ lastPrice);
 
 
                 }
